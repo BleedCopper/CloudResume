@@ -1,0 +1,69 @@
+{
+  "name": "Rissa Quindoza",
+  "jobTitle": "Software Engineer",
+  "catchPhrase": "I design solutions and develop experiences",
+  "social": {
+    "github": "https://github.com/BleedCopper",
+    "linkedin": "https://www.linkedin.com/in/rissa-quindoza-39a9b6152",
+    "mail": "rissamquindoza@gmail.com"
+  },
+  "experience": [
+    {
+      "duration": "2022 - Present",
+      "title": "Software Developer",
+      "company": "Sandfield",
+      "link": "https://www.sandfield.co.nz/",
+      "tags": ["React", "React Native", "C#", "SQL"],
+      "description": [
+        "Developed a mobile application utilized by AlliedPetroleum truck drivers to manage inventory and delivery jobs",
+        "Developed website features for dispatchers to visualize contracts and plan fuel deliveries"
+      ]
+    },
+    {
+      "duration": "2018 - 2022",
+      "title": "Software Development Specialist",
+      "company": "Navitaire",
+      "link": "https://www.navitaire.com/",
+      "tags": ["C#", "Windows Services", "SRSS", "SQL", "Angular"],
+      "description": [
+        "Full-stack development",
+        "Manage and lead development team",
+        "Investigate and resolve client issues in production"
+      ]
+    },
+    {
+      "duration": "May - Jul 2017",
+      "title": "Intern",
+      "company": "Samsung R&D",
+      "link": "https://research.samsung.com/srph",
+      "tags": ["Java", "Selenium"],
+      "description": [
+        "Developed testing environment for simultaneous testing on web and android devices",
+        "Manual and automated testing for smart classroom technology"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "photo": "website.png",
+      "title": "rissaquindoza.dev",
+      "link": "rissaquindoza.dev",
+      "figma": "https://www.figma.com/design/w7UJHvNqG8HlS67hONCt6C/rissaquindoza.com?node-id=20-162&t=WsCppsOpPlZOsoOx-1",
+      "github": "asd",
+      "tags": ["Vue.js", "Azure"],
+      "description": [
+        "Portfolio and resume website built for the cloud resume challenge. It intends to be a demonstration of my design, development, and deployment skills."
+      ]
+    },
+    {
+      "photo": "profiling.png",
+      "title": "Thesis: Age and Gender Profiling of Social Media Accounts",
+      "link": "https://aisel.aisnet.org/pacis2017/93/",
+      "github": "https://github.com/jankristoffercheng/thesis",
+      "tags": ["Python", "NLP", "Machine Learning"],
+      "description": [
+        "Examines the performance of different machine learning algorithms in identifying the age and gender of Facebook and Twitter profiles."
+      ]
+    }
+  ]
+}
