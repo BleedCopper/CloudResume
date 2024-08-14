@@ -29,7 +29,8 @@ defineProps<{
           class="flex w-full fixed bottom-0 left-0 py-3 justify-center bg-primary z-50 md:bg-opacity-0 md:justify-normal md:relative"
         >
           <span class="text-text-lighter">
-            This site has been viewed <span class="font-semibold">512</span> times
+            This site has been viewed
+            <span class="font-semibold" data-testid="viewCount">512</span> times
           </span>
         </div>
       </div>
