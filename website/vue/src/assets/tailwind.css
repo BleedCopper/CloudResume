@@ -33,10 +33,10 @@
     @apply text-4xl lg:text-5xl font-bold;
   }
   h2 {
-    @apply text-xl lg:text-2xl font-medium;
+    @apply text-lg lg:text-xl font-medium;
   }
   h3 {
-    @apply font-medium;
+    @apply text-base font-medium;
   }
   h4 {
     @apply text-sm font-medium;

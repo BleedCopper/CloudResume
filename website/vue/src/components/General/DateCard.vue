@@ -12,7 +12,7 @@ defineProps<{
   <CardItem :href="href">
     <template #title> <slot name="title" /></template>
     <template #preview>
-      <p class="text-xs text-text-lighter uppercase font-semibold">
+      <p class="text-xs text-text opacity-50 uppercase font-semibold">
         <slot name="preview" />
       </p>
     </template>

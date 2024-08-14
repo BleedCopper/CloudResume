@@ -25,7 +25,7 @@ const imageUrl = new URL('../assets/' + props.data.photo, import.meta.url).href
       </div>
     </template>
     <template #body>
-      <p v-for="desc in data.description">
+      <p class="opacity-80" v-for="desc in data.description">
         {{ desc }}
       </p>
       <TagList :tags="data.tags" />

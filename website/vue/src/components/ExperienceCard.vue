@@ -15,7 +15,7 @@ defineProps<{
       {{ data.duration }}
     </template>
     <template #body>
-      <ul class="list-disc pl-3.5">
+      <ul class="list-disc pl-3.5 opacity-80">
         <li v-for="desc in data.description">
           {{ desc }}
         </li>

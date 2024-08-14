@@ -17,7 +17,7 @@ defineProps<{
             <h1>{{ data.name }}</h1>
             <h2>{{ data.jobTitle }}</h2>
           </div>
-          <h3 class="font-light">I design solutions and develop experiences</h3>
+          <h3 class="font-light opacity-80">I design solutions and develop experiences</h3>
         </div>
         <Button class="hidden md:inline-block" :href="'mailto:' + data.social.mail"
           >Contact Me</Button
