@@ -19,6 +19,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: 'website/vue/package-lock.json'
     - run: cd website/vue
     - run: npm ci
     - run: npm run build 
