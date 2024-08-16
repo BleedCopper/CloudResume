@@ -17,7 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }
+}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
@@ -42,7 +43,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name rqcloudresumestore --auth-mode key -d '$web' -s /dist
+            az storage blob upload-batch --account-name rqcloudresumestore --auth-mode key -d '$web' -s dist/
   # Azure logout
     - name: logout
       run: |
