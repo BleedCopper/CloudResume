@@ -26,9 +26,11 @@
       "link": "https://www.navitaire.com/",
       "tags": ["C#", "Windows Services", "SRSS", "SQL", "Angular"],
       "description": [
-        "Full-stack development",
-        "Manage and lead development team",
-        "Investigate and resolve client issues in production"
+        "Designed new architecture for scalable system for services",
+        "Managed and led development team",
+        "Led initiatives to improve automated testing",
+        "Investigate and resolve client issues in production",
+        "Above and beyond awardee"
       ]
     },
     {
@@ -49,8 +51,8 @@
       "title": "rissaquindoza.dev",
       "link": "rissaquindoza.dev",
       "figma": "https://www.figma.com/design/w7UJHvNqG8HlS67hONCt6C/rissaquindoza.com?node-id=20-162&t=WsCppsOpPlZOsoOx-1",
-      "github": "asd",
-      "tags": ["Vue.js", "Azure"],
+      "github": "https://github.com/BleedCopper/CloudResume",
+      "tags": ["Vue.js", "Azure Functions", "Playwright"],
       "description": [
         "Portfolio and resume website built for the cloud resume challenge. It intends to be a demonstration of my design, development, and deployment skills."
       ]
