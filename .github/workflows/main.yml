@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'website/vue'
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -25,6 +28,9 @@ jobs:
     
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'website/vue'
     needs: build
     steps:
     - uses: actions/checkout@v3
