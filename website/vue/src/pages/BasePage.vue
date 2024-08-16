@@ -3,7 +3,7 @@ import LandingPage from './LandingPage.vue'
 import Experience from './Experience.vue'
 import Projects from './Projects.vue'
 import type { Resume } from '../models/resume.ts'
-import myFile from '../assets/resume.json'
+import myFile from '../../public/resume.json'
 
 const myResume: Resume = myFile
 </script>
