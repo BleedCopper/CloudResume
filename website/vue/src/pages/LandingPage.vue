@@ -2,10 +2,23 @@
 import type { Resume } from '@/models/resume'
 import Button from '../components/General/Button.vue'
 import Socials from '@/components/Socials.vue'
+import { onMounted, ref } from 'vue'
+import { fetchCounter } from '@/api/counter'
+import { useCounterStore } from '@/stores/counter'
 
 defineProps<{
   data: Resume
 }>()
+
+const counter = useCounterStore()
+
+const fetchData = async () => {
+  fetchCounter().then((data) => {
+    counter.set(data.count)
+  })
+}
+
+fetchData()
 </script>
 
 <template>
@@ -30,7 +43,10 @@ defineProps<{
         >
           <span class="text-text-lighter">
             This site has been viewed
-            <span class="font-semibold" data-testid="viewCount">512</span> times
+            <span class="font-semibold" data-testid="viewCount" v-if="counter.count">{{
+              counter.count
+            }}</span>
+            times
           </span>
         </div>
       </div>
