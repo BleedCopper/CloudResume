@@ -2,7 +2,8 @@
   "trailingSlash": "auto",
   "routes": [],
   "navigationFallback": {
-    "rewrite": "index.html"
+    "rewrite": "index.html",
+    "exclude": ["/assets/*.{png,jpg,gif,svg}", "/src/assets/*.{png,jpg,gif,svg}"]
   },
   "mimeTypes": {
     ".json": "text/json",
