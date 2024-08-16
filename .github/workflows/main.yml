@@ -17,6 +17,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
@@ -25,15 +26,8 @@ jobs:
         cache-dependency-path: './website/vue/package-lock.json'
     - run: npm ci
     - run: npm run build 
-    
-  deploy:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: 'website/vue'
-    needs: build
-    steps:
-    - uses: actions/checkout@v3
+
+    - name: Login Azure
     - uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
