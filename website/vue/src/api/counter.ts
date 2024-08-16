@@ -4,7 +4,7 @@ const prod = 'https://rq-cloudresume-fnc.azurewebsites.net/api/updateviewcounttr
 const local = 'http://localhost:7071/api/UpdateViewCountTrigger'
 
 const fetchCounter = (): Promise<Counter> => {
-  return fetch(local).then((resp) => {
+  return fetch(prod).then((resp) => {
     return resp.json()
   })
 }
