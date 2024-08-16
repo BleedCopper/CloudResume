@@ -35,7 +35,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name rqcloudresumestore --auth-mode key -d '$web' -s dist/
+            az storage blob upload-batch --account-name rqcloudresumestore --auth-mode key -d '$web' -s './website/vue/dist/'
   # Azure logout
     - name: logout
       run: |
