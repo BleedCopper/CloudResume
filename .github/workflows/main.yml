@@ -26,16 +26,8 @@ jobs:
     - run: npm ci
     - run: npm run build 
 
- 
-  deploy:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: 'website/vue'
-    needs: build
-    steps:
-    - uses: actions/checkout@v3
-    - uses: azure/login@v1
+    - name: Azure login
+      uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
