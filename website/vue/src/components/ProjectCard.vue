@@ -5,13 +5,14 @@ import TagList from './TagList.vue'
 import PhotoCard from './General/PhotoCard.vue'
 import FigmaLink from './FigmaLink.vue'
 import GithubLink from './GithubLink.vue'
+import { ref } from 'vue'
 
 const props = defineProps<{
   data: Project
 }>()
 
-console.log(props.data)
-const imageUrl = new URL('../assets/' + props.data.photo, import.meta.url).href
+const baseUrl = window.location.origin
+const imageUrl = new URL(baseUrl + '/' + props.data.photo, import.meta.url).href
 // const imgPath = require('@/assets/' + props.data.photo)
 </script>
 <template>
