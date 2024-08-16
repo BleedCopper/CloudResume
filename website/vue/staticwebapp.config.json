@@ -6,7 +6,6 @@
     "exclude": ["/assets/*.{png,jpg,gif,svg}", "/src/assets/*.{png,jpg,gif,svg}"]
   },
   "mimeTypes": {
-    ".json": "text/json",
-    ".png": "image/png"
+    ".json": "text/json"
   }
 }
