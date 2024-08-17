@@ -22,7 +22,7 @@ defineProps<{
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              class="inline-block h-4 w-4 shrink-0 transition-transform group-hover/card:-translate-y-1 group-hover:translate-x-1 motion-reduce:transition-none"
+              class="inline-block h-4 w-4 shrink-0 transition-transform group-hover/card:-translate-y-1 group-hover/card:translate-x-1 motion-reduce:transition-none"
               aria-hidden="true"
             >
               <path
