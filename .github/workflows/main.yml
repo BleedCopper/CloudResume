@@ -41,7 +41,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name ${{AZURE_STORAGE_NAME}} --auth-mode key -d '$web' -s './website/vue/dist/' --overwrite
+            az storage blob upload-batch --account-name ${{env.AZURE_STORAGE_NAME}} --auth-mode key -d '$web' -s './website/vue/dist/' --overwrite
   # Azure logout
     - name: logout
       run: |
