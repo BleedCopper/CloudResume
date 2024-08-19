@@ -29,13 +29,15 @@ jobs:
                     - 'website/vue/**'
                 terraform:
                     - 'IaC/terraform/**'
+                workflow:
+                    - '.github/workflows/**'
   terraform:
         needs: changes
         defaults:
             run:
                 working-directory: 'IaC/terraform' 
         runs-on: ubuntu-latest
-        if: ${{ needs.changes.outputs.terraform == 'true' }}
+        if: ${{ needs.changes.outputs.terraform == 'true' || needs.changes.outputs.workflow == 'true' }}
         steps:
             - uses: actions/checkout@v3
             - name: Login to azure
@@ -83,7 +85,7 @@ jobs:
     defaults:
       run:
         working-directory: 'website/vue'
-    if: ${{ needs.changes.outputs.vue == 'true' }}
+    if: ${{ needs.changes.outputs.vue == 'true'  || needs.changes.outputs.workflow == 'true' }}
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -123,7 +125,7 @@ jobs:
    defaults:
       run:
         working-directory: 'compute/azureFunctions'
-   if: ${{ needs.changes.outputs.azurefnc == 'true' }}
+   if: ${{ needs.changes.outputs.azurefnc == 'true' || needs.changes.outputs.workflow == 'true'  }}
    steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v4
@@ -151,7 +153,7 @@ jobs:
       id: fa
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: 'output'
+        package: '/output'
        
     # Azure logout
     - name: logout
