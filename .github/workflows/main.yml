@@ -7,16 +7,38 @@ on:
 env:
   AZURE_STORAGE_NAME: 'tfcloudresumestore'
   AZURE_FUNCTIONAPP_NAME: 'tf-cloudresume-fnc'   # set this to your function app name on Azure
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'compute/azureFunctions'       # set this to the path to your function app project, defaults to the repository root
   DOTNET_VERSION: '8.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
-  TF_CREATE: true
+  TF_CREATE: false
   
 jobs:
+  changes:
+        runs-on: ubuntu-latest
+        outputs:
+            azurefnc: ${{ steps.filter.outputs.azurefnc }}
+            vue: ${{ steps.filter.outputs.vue }}
+            terraform: ${{ steps.filter.outputs.terraform }}
+            workflow: ${{ steps.filter.outputs.workflow }}
+        steps:
+        - uses: actions/checkout@v3
+        - uses: dorny/paths-filter@v2
+          id: filter
+          with:
+            filters: |
+                azurefnc:
+                    - 'compute/azureFunctions/**'
+                vue:
+                    - 'website/vue/**'
+                terraform:
+                    - 'IaC/terraform/**'
+                workflow:
+                    - '.github/workflows/**'
   terraform:
+        needs: changes
         defaults:
             run:
                 working-directory: 'IaC/terraform' 
         runs-on: ubuntu-latest
+        if: ${{ needs.changes.outputs.terraform == 'true' || needs.changes.outputs.workflow == 'true' }}
         steps:
             - uses: actions/checkout@v3
             - name: Login to azure
@@ -27,8 +49,22 @@ jobs:
               uses: hashicorp/setup-terraform@v1
               with:
                 cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+            - name: Setup Terraform Backend
+              id: backend
+              run: |
+                cat > backend.config << EOF
+                resource_group_name = "terraformstate"
+                storage_account_name = "rqterraformstate"
+                container_name = "terraformstate"
+                key = "terraform.tfstate"
+                
+                client_id       = "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
+                client_secret   = "${{secrets.TF_VAR_AZURE_CLIENTSECRET}}"
+                tenant_id       = "b490748b-6369-41b5-8b27-eaf6200aa287"
+                subscription_id = "472e404e-7704-43a8-96a1-072607c075e1"
+                EOF
             - name: Terraform Init
-              run: terraform init 
+              run: terraform init -backend-config="backend.config"
             - name: Terraform Plan
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
@@ -50,6 +86,7 @@ jobs:
     defaults:
       run:
         working-directory: 'website/vue'
+    if: ${{ needs.changes.outputs.vue == 'true'  || needs.changes.outputs.workflow == 'true' }}
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -86,6 +123,10 @@ jobs:
    runs-on: windows-latest # For Linux, use ubuntu-latest
    needs: terraform
    environment: dev
+   defaults:
+      run:
+        working-directory: 'compute/azureFunctions'
+   if: ${{ needs.changes.outputs.azurefnc == 'true' || needs.changes.outputs.workflow == 'true'  }}
    steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v4
@@ -104,7 +145,7 @@ jobs:
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: pwsh # For Linux, use bash
       run: |
-        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        pushd '.'
         dotnet build --configuration Release --output ./output
         popd
 
@@ -113,9 +154,8 @@ jobs:
       id: fa
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-        #publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }} # Remove publish-profile to use Azure RBAC
-    
+        package: './compute/azureFunctions/output/'
+       
     # Azure logout
     - name: logout
       run: |
@@ -128,7 +168,7 @@ jobs:
     defaults:
       run:
         working-directory: 'tests/playwright'
-
+    if: always()
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
