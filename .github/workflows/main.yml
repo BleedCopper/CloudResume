@@ -34,12 +34,14 @@ jobs:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
                 TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
                 TF_VAR_tf_create: ${{ env.TF_CREATE }}
+                TF_VAR_client_secret: ${{secrets.TF_VAR_AZURE_CLIENTSECRET }}
               run: terraform plan 
             - name: Terraform apply
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
                 TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
                 TF_VAR_tf_create: ${{ env.TF_CREATE }}
+                TF_VAR_client_secret: ${{secrets.TF_VAR_AZURE_CLIENTSECRET }}
               run: terraform apply -auto-approve 
               
   frontend:
