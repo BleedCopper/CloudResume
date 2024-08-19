@@ -9,10 +9,42 @@ env:
   AZURE_FUNCTIONAPP_NAME: 'tf-cloudresume-fnc'   # set this to your function app name on Azure
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'compute/azureFunctions'       # set this to the path to your function app project, defaults to the repository root
   DOTNET_VERSION: '8.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
-
+  TF_CREATE: true
+  
 jobs:
+  terraform:
+        defaults:
+            run:
+                working-directory: 'IaC/terraform' 
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Login to azure
+              uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v1
+              with:
+                cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+            - name: Terraform Init
+              run: terraform init 
+            - name: Terraform Plan
+              env:
+                TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
+                TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
+                TF_VAR_tf_create: ${{ env.TF_CREATE }}
+              run: terraform plan 
+            - name: Terraform apply
+              env:
+                TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
+                TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
+                TF_VAR_tf_create: ${{ env.TF_CREATE }}
+              run: terraform apply -auto-approve 
+              
   frontend:
     runs-on: ubuntu-latest
+    needs: terraform
     defaults:
       run:
         working-directory: 'website/vue'
@@ -50,6 +82,7 @@ jobs:
 
   backend:
    runs-on: windows-latest # For Linux, use ubuntu-latest
+   needs: terraform
    environment: dev
    steps:
     - name: 'Checkout GitHub Action'
