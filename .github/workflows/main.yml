@@ -145,9 +145,7 @@ jobs:
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: pwsh # For Linux, use bash
       run: |
-        pushd '.'
         dotnet build --configuration Release --output ./output
-        popd
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
