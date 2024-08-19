@@ -15,6 +15,7 @@ terraform {
 }
 variable "cloudflare_zoneid" {}
 variable "cloudflare_api" {}
+variable "tf_create" {}
 
 provider "azurerm" {
   features {}
@@ -39,8 +40,9 @@ resource "azurerm_storage_account" "store" {
     index_document = "index.html"
   }
   custom_domain {
-    name = "rissaquindoza.com"
-    use_subdomain = true
+    name = var.tf_create ? "" : "rissaquindoza.com"
+    use_subdomain = var.tf_create ? false : true
+    
   }
   network_rules {
     default_action = "Allow"
