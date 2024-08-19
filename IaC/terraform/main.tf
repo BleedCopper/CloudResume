@@ -134,7 +134,7 @@ resource "azurerm_windows_function_app" "rq" {
     FUNCTIONS_WORKER_RUNTIME = "dotnet-isolated"
     WEBSITE_USE_PLACEHOLDER_DOTNETISOLATED = 1
     AzureWebJobsSecretStorageType = "files"
-    CosmosDbConnectionString = "AccountEndpoint=${azurerm_cosmosdb_account.cosmos.endpoint};AccountKey=${azurerm_cosmosdb_account.cosmos.primary_key};"
+    CosmosDbConnectionSetting = "AccountEndpoint=${azurerm_cosmosdb_account.cosmos.endpoint};AccountKey=${azurerm_cosmosdb_account.cosmos.primary_key};"
   }
 }
 
