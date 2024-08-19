@@ -11,11 +11,31 @@ env:
   TF_CREATE: false
   
 jobs:
+  changes:
+        runs-on: ubuntu-latest
+        outputs:
+            azurefnc: ${{ steps.filter.outputs.azurefnc }}
+            vue: ${{ steps.filter.outputs.vue }}
+            terraform: ${{ steps.filter.outputs.terraform }}
+        steps:
+        - uses: actions/checkout@v3
+        - uses: dorny/paths-filter@v2
+          id: filter
+          with:
+            filters: |
+                azurefnc:
+                    - 'compute/azureFunctions/**'
+                vue:
+                    - 'website/vue/**'
+                terraform:
+                    - 'IaC/terraform/**'
   terraform:
+        needs: changes
         defaults:
             run:
                 working-directory: 'IaC/terraform' 
         runs-on: ubuntu-latest
+        if: ${{ needs.changes.outputs.terraform == 'true' }}
         steps:
             - uses: actions/checkout@v3
             - name: Login to azure
@@ -63,6 +83,7 @@ jobs:
     defaults:
       run:
         working-directory: 'website/vue'
+    if: ${{ needs.changes.outputs.vue == 'true' }}
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -102,6 +123,7 @@ jobs:
    defaults:
       run:
         working-directory: 'compute/azureFunctions'
+   if: ${{ needs.changes.outputs.azurefnc == 'true' }}
    steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v4
@@ -143,7 +165,7 @@ jobs:
     defaults:
       run:
         working-directory: 'tests/playwright'
-
+    if: always()
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
