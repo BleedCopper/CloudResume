@@ -86,7 +86,7 @@ jobs:
     defaults:
       run:
         working-directory: 'website/vue'
-    if: ${{ needs.changes.outputs.vue == 'true'  || needs.changes.outputs.workflow == 'true' }}
+    if: ${{ always() && (needs.changes.outputs.vue == 'true'  || needs.changes.outputs.workflow == 'true') }}
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -126,7 +126,7 @@ jobs:
    defaults:
       run:
         working-directory: 'compute/azureFunctions'
-   if: ${{ needs.changes.outputs.azurefnc == 'true' || needs.changes.outputs.workflow == 'true'  }}
+   if: ${{ always() && (needs.changes.outputs.azurefnc == 'true' || needs.changes.outputs.workflow == 'true')  }}
    steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v4
