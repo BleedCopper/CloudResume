@@ -30,19 +30,15 @@ jobs:
               id: backend
               run: |
                 cat > backend.config << EOF
-                terraform {
-                  backend "azurerm" {
-                    resource_group_name = "terraformstate"
-                    storage_account_name = "rqterraformstate"
-                    container_name = "terraformstate"
-                    key = "terraform.tfstate"
-                    
-                    client_id       = "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
-                    client_secret   = "${{secrets.TF_VAR_AZURE_CLIENTSECRET}}"
-                    tenant_id       = "b490748b-6369-41b5-8b27-eaf6200aa287"
-                    subscription_id = "472e404e-7704-43a8-96a1-072607c075e1"
-                  }
-                }
+                resource_group_name = "terraformstate"
+                storage_account_name = "rqterraformstate"
+                container_name = "terraformstate"
+                key = "terraform.tfstate"
+                
+                client_id       = "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
+                client_secret   = "${{secrets.TF_VAR_AZURE_CLIENTSECRET}}"
+                tenant_id       = "b490748b-6369-41b5-8b27-eaf6200aa287"
+                subscription_id = "472e404e-7704-43a8-96a1-072607c075e1"
                 EOF
             - name: Terraform Init
               run: terraform init -backend-config="backend.config"
