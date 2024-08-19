@@ -127,6 +127,7 @@ resource "azurerm_windows_function_app" "rq" {
       allowed_origins = ["https://rissaquindoza.com", azurerm_storage_account.store.primary_web_endpoint]
     }
     application_insights_connection_string = azurerm_application_insights.insight.connection_string
+    application_insights_key = azurerm_application_insights.insight.instrumentation_key
   }
 
   app_settings = {
