@@ -1,5 +1,15 @@
+
+variable "cloudflare_zoneid" {}
+variable "cloudflare_api" {}
+variable "client_secret" {}
+variable "tf_create" {}
+
+
 # Configure the Azure provider
 terraform {
+  backend "azurerm" {
+  }
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -13,11 +23,6 @@ terraform {
 
   required_version = ">= 1.1.0"
 }
-variable "cloudflare_zoneid" {}
-variable "cloudflare_api" {}
-variable "client_secret" {}
-variable "tf_create" {}
-
 provider "azurerm" {
   features {}
   
@@ -60,8 +65,12 @@ resource "azurerm_cosmosdb_account" "cosmos" {
   resource_group_name   = azurerm_resource_group.rg.name
   offer_type            = "Standard"
 
+  capabilities {
+    name = "EnableServerless"
+  }
+
   consistency_policy {
-    consistency_level = "Strong"
+    consistency_level = "BoundedStaleness"
   }
 
   geo_location {
@@ -70,6 +79,21 @@ resource "azurerm_cosmosdb_account" "cosmos" {
   }
 }
 
+resource "azurerm_cosmosdb_sql_database" "db" {
+  name                = "cloudResume"
+  resource_group_name = azurerm_cosmosdb_account.cosmos.resource_group_name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+}
+
+resource "azurerm_cosmosdb_sql_container" "container" {
+  name                  = "Views"
+  resource_group_name   = azurerm_cosmosdb_account.cosmos.resource_group_name
+  account_name          = azurerm_cosmosdb_account.cosmos.name
+  database_name         = azurerm_cosmosdb_sql_database.db.name
+  partition_key_path = "/id"
+  partition_key_version = 1
+
+}
 
 resource "azurerm_service_plan" "sp" {
   name                = "tf-cloudresume-asp"
