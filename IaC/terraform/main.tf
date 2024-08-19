@@ -119,6 +119,13 @@ resource "azurerm_windows_function_app" "rq" {
       allowed_origins = ["https://rissaquindoza.com", azurerm_storage_account.store.primary_web_endpoint]
     }
   }
+
+  app_settings = {
+    FUNCTIONS_WORKER_RUNTIME = "dotnet-isolated"
+    WEBSITE_USE_PLACEHOLDER_DOTNETISOLATED = 1
+    AzureWebJobsSecretStorageType = "files"
+    CosmosDbConnectionString = azurerm_cosmosdb_account.cosmos.primary_sql_connection_string
+  }
 }
 
 
