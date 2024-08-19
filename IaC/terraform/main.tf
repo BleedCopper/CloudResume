@@ -103,6 +103,14 @@ resource "azurerm_service_plan" "sp" {
   sku_name            = "Y1"
 }
 
+
+resource "azurerm_application_insights" "insight" {
+  name                = "tf-appInsights"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  application_type    = "web"
+}
+
 resource "azurerm_windows_function_app" "rq" {
   name                = "tf-cloudresume-fnc"
   resource_group_name = azurerm_resource_group.rg.name
@@ -118,6 +126,7 @@ resource "azurerm_windows_function_app" "rq" {
     cors {
       allowed_origins = ["https://rissaquindoza.com", azurerm_storage_account.store.primary_web_endpoint]
     }
+    application_insights_connection_string = azurerm_application_insights.insight.connection_string
   }
 
   app_settings = {
