@@ -123,9 +123,6 @@ jobs:
    runs-on: windows-latest # For Linux, use ubuntu-latest
    needs: terraform
    environment: dev
-   defaults:
-      run:
-        working-directory: 'compute/azureFunctions'
    if: ${{ always() && (needs.changes.outputs.azurefnc == 'true' || needs.changes.outputs.workflow == 'true')  }}
    steps:
     - name: 'Checkout GitHub Action'
@@ -145,14 +142,25 @@ jobs:
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: pwsh # For Linux, use bash
       run: |
+        pushd './compute/azureFunctions'
         dotnet build --configuration Release --output ./output
+        popd
+
+        
+    - name: 'Run Unit Tests'
+      shell: pwsh
+      run: |
+        pushd './tests/unit/xUnit'
+        dotnet build
+        dotnet test
+        popd
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       id: fa
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: './compute/azureFunctions/output/'
+        package: 'compute/azureFunctions/output/'
        
     # Azure logout
     - name: logout
