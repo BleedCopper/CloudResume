@@ -48,8 +48,8 @@
   "projects": [
     {
       "photo": "website.png",
-      "title": "rissaquindoza.dev",
-      "link": "rissaquindoza.dev",
+      "title": "rissaquindoza.com",
+      "link": "https://rissaquindoza.com",
       "figma": "https://www.figma.com/design/w7UJHvNqG8HlS67hONCt6C/rissaquindoza.com?node-id=20-162&t=WsCppsOpPlZOsoOx-1",
       "github": "https://github.com/BleedCopper/CloudResume",
       "tags": [
