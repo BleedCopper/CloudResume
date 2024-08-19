@@ -52,9 +52,18 @@
       "link": "rissaquindoza.dev",
       "figma": "https://www.figma.com/design/w7UJHvNqG8HlS67hONCt6C/rissaquindoza.com?node-id=20-162&t=WsCppsOpPlZOsoOx-1",
       "github": "https://github.com/BleedCopper/CloudResume",
-      "tags": ["Vue.js", "Azure Functions", "Playwright"],
+      "tags": [
+        "Vue.js",
+        "Tailwind",
+        "Azure Functions",
+        "CosmosDB",
+        "Playwright",
+        "xUnit",
+        "Github Actions",
+        "Terraform"
+      ],
       "description": [
-        "Portfolio and resume website built for the cloud resume challenge. It intends to be a demonstration of my design, development, and deployment skills."
+        "Portfolio and resume website built for the cloud resume challenge. It intends to be a practice and demonstration of my design, development, and deployment skills."
       ]
     },
     {
