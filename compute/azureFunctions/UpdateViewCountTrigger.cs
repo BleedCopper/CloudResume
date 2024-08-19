@@ -21,10 +21,10 @@ namespace RQ.Function
         [Function("UpdateViewCountTrigger")]
         public async Task<MultiResponse>  Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
-            [CosmosDBInput("cloudResume", "Views", Connection = "CosmosDbConnectionSetting", Id = "1", PartitionKey = "1")] Counter counter)
+            [CosmosDBInput("cloudResume", "Views", Connection = "CosmosDbConnectionSetting")] List<Counter> counters)
         {
             _logger.LogInformation("[UpdateViewCountTrigger] Function processed a request.");
-
+            Counter counter = counters.Count() == 0 ? new Counter() : counters[0];
             counter.Count += 1;
 
             HttpResponseData response = req.CreateResponse(HttpStatusCode.OK);
@@ -33,7 +33,7 @@ namespace RQ.Function
             await response.WriteStringAsync(jsonString);
 
             MultiResponse resp = new MultiResponse(){
-                CounterResponse = new Counter(counter.Count),
+                CounterResponse = new Counter(counter),
                 HttpResponse = response
             };
             return resp;

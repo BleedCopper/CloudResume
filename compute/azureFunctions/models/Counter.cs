@@ -8,14 +8,14 @@ public class Counter {
         Id = "1";
         Count = 0;
     }
-    public Counter (int count){
-        Id = "1";
-        Count = count;
+    public Counter (Counter count){
+        Id = count.Id;
+        Count = count.Count;
     }
 
     [JsonPropertyName("id")]
     public String Id {get; set;}
 
     [JsonPropertyName("count")]
-    public int Count {get; set;}
+    public int? Count {get; set;}
 }
