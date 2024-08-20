@@ -5,11 +5,14 @@ import Socials from '@/components/Socials.vue'
 import { onMounted, ref } from 'vue'
 import { fetchCounter } from '@/api/counter'
 import { useCounterStore } from '@/stores/counter'
+import mySettings from '../../public/settings.json'
+import type { Settings } from '@/models/settings'
 
 defineProps<{
   data: Resume
 }>()
 
+const settings: Settings = mySettings
 const counter = useCounterStore()
 
 const fetchData = async () => {
@@ -39,6 +42,7 @@ fetchData()
       <div class="space-y-0.5">
         <Socials :data="data" />
         <div
+          v-if="!settings.disableViewCount"
           class="flex w-full fixed bottom-0 left-0 py-3 justify-center bg-primary z-50 md:bg-opacity-0 md:justify-normal md:relative"
         >
           <span class="text-text-lighter">
