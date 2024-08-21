@@ -2,12 +2,12 @@
 import Tag from './General/Tag.vue'
 
 defineProps<{
-  tags: string[]
+  tags: string[] | undefined
 }>()
 </script>
 
 <template>
-  <div class="container space-x-1 space-y-1">
+  <div v:if="tags" class="container space-x-1 space-y-1">
     <Tag v-for="tag in tags">
       {{ tag }}
     </Tag>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import ExperienceCard from '@/components/ExperienceCard.vue'
+import { ExperienceCard, BaseSection } from '@/components/index.js'
 import type { Experience } from '../models/resume.ts'
-import SectionHeader from '@/components/General/SectionHeader.vue'
 
 defineProps<{
   data: Experience[]
@@ -9,10 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="container flex-row space-y-1">
-    <SectionHeader>Experience</SectionHeader>
-    <div class="space-y-2">
-      <ExperienceCard v-for="experience in data" :data="experience" />
-    </div>
-  </div>
+  <BaseSection title="Experience">
+    <ExperienceCard v-for="experience in data" :data="experience" />
+  </BaseSection>
 </template>
