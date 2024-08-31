@@ -62,7 +62,7 @@ jobs:
                 subscription_id = "472e404e-7704-43a8-96a1-072607c075e1"
                 EOF
             - name: Terraform Init
-              run: terraform init -backend-config="backend.config"
+              run: terraform init -backend-config="backend.config" -upgrade
             - name: Terraform Plan
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
