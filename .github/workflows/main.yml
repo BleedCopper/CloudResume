@@ -122,7 +122,6 @@ jobs:
   backend:
    runs-on: windows-latest # For Linux, use ubuntu-latest
    needs: terraform
-   environment: dev
    if: ${{ always() && (needs.changes.outputs.azurefnc == 'true' || needs.changes.outputs.workflow == 'true')  }}
    steps:
     - name: 'Checkout GitHub Action'
