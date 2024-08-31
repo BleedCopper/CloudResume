@@ -101,9 +101,9 @@ jobs:
     - name: Azure login
       uses: azure/login@v1
       with:
-          client_id: "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
-          tenant_id: "b490748b-6369-41b5-8b27-eaf6200aa287"
-          subscription_id: "472e404e-7704-43a8-96a1-072607c075e1"
+          client-id: "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
+          tenant-id: "b490748b-6369-41b5-8b27-eaf6200aa287"
+          subscription-id: "472e404e-7704-43a8-96a1-072607c075e1"
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
