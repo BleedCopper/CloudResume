@@ -1,7 +1,6 @@
 
 variable "cloudflare_zoneid" {}
 variable "cloudflare_api" {}
-variable "client_secret" {}
 variable "tf_create" {}
 
 
