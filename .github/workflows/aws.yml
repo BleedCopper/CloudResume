@@ -62,16 +62,23 @@ jobs:
                 encrypt = true
                 EOF
             - name: Terraform Init
+              env:
+                AWS_ROLE_ARN: ${{ vars.AWS_ROLE_TO_ASSUME }}
+                AWS_REGION: ap-southeast-2
               run: terraform init -backend-config="backend.config" -upgrade
             - name: Terraform Plan
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
                 TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
+                AWS_ROLE_ARN: ${{ vars.AWS_ROLE_TO_ASSUME }}
+                AWS_REGION: ap-southeast-2
               run: terraform plan 
             - name: Terraform apply
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
                 TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
+                AWS_ROLE_ARN: ${{ vars.AWS_ROLE_TO_ASSUME }}
+                AWS_REGION: ap-southeast-2
               run: terraform apply -auto-approve 
               
   frontend:
