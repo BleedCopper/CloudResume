@@ -60,9 +60,6 @@ jobs:
                 key = "terraform.tfstate"
                 region = "ap-southeast-2"
                 encrypt = true
-                assume_role = {
-                  role_arn = "${{ env.AWS_ROLE_TO_ASSUME }}"
-                }
                 EOF
             - name: Terraform Init
               env:
@@ -107,6 +104,12 @@ jobs:
     - run: npm ci
     - run: npm run build 
     
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+        aws-region: ap-southeast-2
+        
     - name: Upload to S3
       uses: jakejarvis/s3-sync-action@master
       with:
