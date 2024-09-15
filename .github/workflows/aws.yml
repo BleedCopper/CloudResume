@@ -108,7 +108,7 @@ jobs:
       with:
         args: --acl public-read
       env:
-        SOURCE_DIR: out/
+        SOURCE_DIR: ./website/react/out/
         AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET }}
 
     - name: Invalidate Cloudflare cache
