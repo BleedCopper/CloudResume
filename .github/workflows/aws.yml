@@ -18,7 +18,7 @@ jobs:
             # lambda: ${{ steps.filter.outputs.lambda }}
             react: ${{ steps.filter.outputs.react }}
             terraform: ${{ steps.filter.outputs.terraform }}
-            # workflow: ${{ steps.filter.outputs.workflow }}
+            workflow: ${{ steps.filter.outputs.workflow }}
         steps:
         - uses: actions/checkout@v3
         - uses: dorny/paths-filter@v2
