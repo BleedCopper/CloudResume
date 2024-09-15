@@ -31,14 +31,14 @@ jobs:
                 vue:
                     - 'website/vue/**'
                 terraform:
-                    - 'IaC/terraform/**'
+                    - 'IaC/terraform/azure/**'
                 workflow:
-                    - '.github/workflows/**'
+                    - '.github/workflows/azure.yml'
   terraform:
         needs: changes
         defaults:
             run:
-                working-directory: 'IaC/terraform' 
+                working-directory: 'IaC/terraform/azure' 
         runs-on: ubuntu-latest
         if: ${{ needs.changes.outputs.terraform == 'true' || needs.changes.outputs.workflow == 'true' }}
         steps:
