@@ -16,7 +16,7 @@ export const LandingPage = ({ data }: IProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      fetchCounter().then((data: any) => {
+      fetchCounter().then((data) => {
         setCounter(data.count);
       });
     };

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./assets/globals.css";
 import "./assets/tailwind.css";
 import "@fortawesome/fontawesome-free/js/all.js";
