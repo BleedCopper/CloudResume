@@ -42,11 +42,11 @@ jobs:
         if: ${{ needs.changes.outputs.terraform == 'true' || needs.changes.outputs.workflow == 'true' }}
         steps:
             - uses: actions/checkout@v4
-            # - name: Configure AWS Credentials
-            #   uses: aws-actions/configure-aws-credentials@v4
-            #   with:
-            #     role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
-            #     aws-region: ap-southeast-2
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+                aws-region: ap-southeast-2
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v1
               with:
@@ -60,28 +60,18 @@ jobs:
                 key = "terraform.tfstate"
                 region = "ap-southeast-2"
                 encrypt = true
-                assume_role = {
-                  role_arn = "${{ vars.AWS_ROLE_TO_ASSUME }}"
-                }
                 EOF
             - name: Terraform Init
-              env:
-                AWS_ROLE_ARN: ${{ vars.AWS_ROLE_TO_ASSUME }}
-                AWS_REGION: ap-southeast-2
               run: terraform init -backend-config="backend.config" -upgrade
             - name: Terraform Plan
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
                 TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
-                AWS_ROLE_ARN: ${{ vars.AWS_ROLE_TO_ASSUME }}
-                AWS_REGION: ap-southeast-2
               run: terraform plan 
             - name: Terraform apply
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
                 TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
-                AWS_ROLE_ARN: ${{ vars.AWS_ROLE_TO_ASSUME }}
-                AWS_REGION: ap-southeast-2
               run: terraform apply -auto-approve 
               
   frontend:
@@ -106,21 +96,20 @@ jobs:
         cache-dependency-path: './website/react/package-lock.json'
     - run: npm ci
     - run: npm run build 
-
+    
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+        role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
         aws-region: ap-southeast-2
-
-    
+        
     - name: Upload to S3
       uses: jakejarvis/s3-sync-action@master
       with:
         args: --acl public-read
       env:
-        SOURCE_DIR: build/
-        AWS_S3_BUCKET: ${{ vars.AWS_S3_BUCKET }}
+        SOURCE_DIR: ./out
+        AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET }}
 
     - name: Invalidate Cloudflare cache
       run: |
