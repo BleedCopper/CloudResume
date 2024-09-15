@@ -10,6 +10,8 @@ env:
   DOTNET_VERSION: '8.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
   TF_CREATE: false
   
+permissions:
+  id-token: write
 jobs:
   changes:
         runs-on: ubuntu-latest
@@ -40,6 +42,7 @@ jobs:
         runs-on: ubuntu-latest
         if: ${{ needs.changes.outputs.terraform == 'true' || needs.changes.outputs.workflow == 'true' }}
         steps:
+            - uses: actions/checkout@v4
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v1
               with:
@@ -52,27 +55,25 @@ jobs:
                 storage_account_name = "rqterraformstate"
                 container_name = "terraformstate"
                 key = "terraform.tfstate"
+                use_oidc = true   
                 
                 client_id       = "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
-                client_secret   = "${{secrets.TF_VAR_AZURE_CLIENTSECRET }}"
                 tenant_id       = "b490748b-6369-41b5-8b27-eaf6200aa287"
                 subscription_id = "472e404e-7704-43a8-96a1-072607c075e1"
                 EOF
             - name: Terraform Init
-              run: terraform init -backend-config="backend.config"
+              run: terraform init -backend-config="backend.config" -upgrade
             - name: Terraform Plan
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
                 TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
                 TF_VAR_tf_create: ${{ env.TF_CREATE }}
-                TF_VAR_client_secret: ${{secrets.TF_VAR_AZURE_CLIENTSECRET }}
               run: terraform plan 
             - name: Terraform apply
               env:
                 TF_VAR_cloudflare_zoneid: ${{ secrets.TF_VAR_CLOUDFLARE_ZONEID}}
                 TF_VAR_cloudflare_api: ${{ secrets.TF_VAR_CLOUDFLARE_API}}
                 TF_VAR_tf_create: ${{ env.TF_CREATE }}
-                TF_VAR_client_secret: ${{secrets.TF_VAR_AZURE_CLIENTSECRET }}
               run: terraform apply -auto-approve 
               
   frontend:
@@ -101,7 +102,9 @@ jobs:
     - name: Azure login
       uses: azure/login@v1
       with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
+          tenant-id: "b490748b-6369-41b5-8b27-eaf6200aa287"
+          subscription-id: "472e404e-7704-43a8-96a1-072607c075e1"
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
@@ -117,7 +120,6 @@ jobs:
   backend:
    runs-on: windows-latest # For Linux, use ubuntu-latest
    needs: terraform
-   environment: dev
    if: ${{ always() && (needs.changes.outputs.azurefnc == 'true' || needs.changes.outputs.workflow == 'true')  }}
    steps:
     - name: 'Checkout GitHub Action'
@@ -127,7 +129,9 @@ jobs:
     - name: 'Login via Azure CLI'
       uses: azure/login@v1
       with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
+          tenant-id: "b490748b-6369-41b5-8b27-eaf6200aa287"
+          subscription-id: "472e404e-7704-43a8-96a1-072607c075e1"
 
     - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
       uses: actions/setup-dotnet@v4

@@ -1,7 +1,6 @@
 
 variable "cloudflare_zoneid" {}
 variable "cloudflare_api" {}
-variable "client_secret" {}
 variable "tf_create" {}
 
 
@@ -13,7 +12,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0.2"
+      version = "~> 3.7.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -27,9 +26,9 @@ provider "azurerm" {
   features {}
   
   client_id       = "4785bdc7-671d-4140-b6fd-589bf8ee38e4"
-  client_secret   = var.client_secret
   tenant_id       = "b490748b-6369-41b5-8b27-eaf6200aa287"
   subscription_id = "472e404e-7704-43a8-96a1-072607c075e1"
+  use_oidc        = true
 }
 
 provider "cloudflare" {
