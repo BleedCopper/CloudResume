@@ -103,13 +103,16 @@ jobs:
         role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
         aws-region: ap-southeast-2
         
-    - name: Upload to S3
-      uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --acl public-read
-      env:
-        SOURCE_DIR: ./website/react/out/
-        AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET }}
+    # - name: Upload to S3
+    #   uses: jakejarvis/s3-sync-action@master
+    #   with:
+    #     args: --acl public-read
+    #   env:
+    #     SOURCE_DIR: ./website/react/out/
+    #     AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET }}
+
+    - name: Manual upload to S3
+      run: aws s3 sync --delete ./website/react/out/ s3://${{ env.AWS_S3_BUCKET }}
 
     - name: Invalidate Cloudflare cache
       run: |
