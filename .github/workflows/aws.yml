@@ -112,7 +112,7 @@ jobs:
     #     AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET }}
 
     - name: Manual upload to S3
-      run: aws s3 sync --delete ./website/react/out/ s3://${{ env.AWS_S3_BUCKET }}
+      run: aws s3 sync --delete out/ s3://${{ env.AWS_S3_BUCKET }}
 
     - name: Invalidate Cloudflare cache
       run: |
