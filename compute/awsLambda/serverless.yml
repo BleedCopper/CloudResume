@@ -11,15 +11,17 @@ provider:
   region: ap-southeast-2
   httpApi:
     cors: true
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "dynamodb:PutItem"
-        - "dynamodb:GetItem"
-        - "dynamodb:UpdateItem"
-        - "dynamodb:Query"
-        - "dynamodb:Scan"
-      Resource: "arn:aws:dynamodb:${aws.region}:${aws:accountId}:table/viewcount"
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:PutItem"
+            - "dynamodb:GetItem"
+            - "dynamodb:UpdateItem"
+            - "dynamodb:Query"
+            - "dynamodb:Scan"
+          Resource: "arn:aws:dynamodb:${aws.region}:${aws:accountId}:table/viewcount"
 
 plugins:
   - serverless-offline
