@@ -1,4 +1,4 @@
-name: Blob storage website CI
+name: Azure
 
 on:
     push:
@@ -116,6 +116,16 @@ jobs:
       run: |
             az logout
       if: always()
+
+      
+    - name: Invalidate Cloudflare cache
+      run: |
+        curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.TF_VAR_CLOUDFLARE_ZONEID }}/purge_cache" \
+             -H "Authorization: Bearer ${{ secrets.TF_VAR_CLOUDFLARE_API }}" \
+             -H "Content-Type: application/json" \
+             --data '{"purge_everything":true}'
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.TF_VAR_CLOUDFLARE_API }}
 
   backend:
    runs-on: windows-latest # For Linux, use ubuntu-latest
