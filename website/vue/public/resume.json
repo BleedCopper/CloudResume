@@ -56,7 +56,7 @@
         "Vue.js",
         "Tailwind",
         "Azure Functions",
-        "CosmosDB",
+        "Azure CosmosDB",
         "Playwright",
         "xUnit",
         "Github Actions",
@@ -64,6 +64,26 @@
       ],
       "description": [
         "Portfolio and resume website built for the cloud resume challenge. It intends to be a practice and demonstration of my design, development, and deployment skills."
+      ]
+    },
+    {
+      "photo": "website2.png",
+      "title": "aws.rissaquindoza.com",
+      "link": "https://rissaquindoza.com",
+      "figma": "https://www.figma.com/design/w7UJHvNqG8HlS67hONCt6C/rissaquindoza.com?node-id=20-162&t=WsCppsOpPlZOsoOx-1",
+      "github": "https://github.com/BleedCopper/CloudResume",
+      "tags": [
+        "React",
+        "Tailwind",
+        "AWS Lambda",
+        "AWS DynamoDB",
+        "Cypress",
+        "pyTest",
+        "Github Actions",
+        "Terraform"
+      ],
+      "description": [
+        "The same website but built on, tested with, and deployed through different technologies."
       ]
     },
     {

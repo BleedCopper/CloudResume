@@ -1,5 +1,3 @@
-import { Counter } from "../models/counter";
-
 const prod = "https://o92seim3ef.execute-api.ap-southeast-2.amazonaws.com/";
 // const local = "";
 
