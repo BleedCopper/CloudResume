@@ -135,6 +135,7 @@ jobs:
   backend:
     runs-on: ubuntu-latest # For Linux, use ubuntu-latest
     needs: backend-test
+    if: success() 
     defaults:
       run:
         working-directory: 'compute/awsLambda'
