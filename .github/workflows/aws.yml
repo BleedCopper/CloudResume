@@ -165,7 +165,7 @@ jobs:
     - name: serverless deploy
       uses: serverless/github-action@v3.2
       with:
-        args: -c "cd ./compute/awsLambda && serverless deploy --stage prod --use-local-credentials"
+        args: -c "cd ./compute/awsLambda && serverless plugin install --name serverless-offline && serverless deploy --stage prod"
         entrypoint: /bin/sh
         
   cypress-tests:
