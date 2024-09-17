@@ -1,11 +1,11 @@
 import { Counter } from "../models/counter";
 
-const prod = "";
+const prod = "https://o92seim3ef.execute-api.ap-southeast-2.amazonaws.com/";
 // const local = "";
 
-const fetchCounter = (): Promise<Counter> => {
+const fetchCounter = (): Promise<number> => {
   return fetch(prod).then((resp) => {
-    return resp.json();
+    return resp.json() ?? 0;
   });
 };
 

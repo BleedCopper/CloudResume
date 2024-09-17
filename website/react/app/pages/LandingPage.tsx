@@ -17,11 +17,11 @@ export const LandingPage = ({ data }: IProps) => {
   useEffect(() => {
     const fetchData = async () => {
       fetchCounter().then((data) => {
-        setCounter(data.count);
+        setCounter(data);
       });
     };
     fetchData();
-  });
+  }, []);
   return (
     <div className="pt-24 md:flex md:pb-12 md:sticky md:top-0 md:left-12 lg:left-24 md:h-screen">
       <div className="space-y-7 md:flex md:flex-col md:content-between">
