@@ -19,7 +19,7 @@ provider:
         - "dynamodb:UpdateItem"
         - "dynamodb:Query"
         - "dynamodb:Scan"
-      Resource: "arn:aws:dynamodb:${self:provider.region}:${aws:accountId}:table/viewcount"
+      Resource: "arn:aws:dynamodb:${aws.region}:${aws:accountId}:table/viewcount"
 
 plugins:
   - serverless-offline
