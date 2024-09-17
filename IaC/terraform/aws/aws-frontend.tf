@@ -2,6 +2,9 @@
 resource "aws_s3_bucket" "tfBucket" {
   bucket = "aws.rissaquindoza.com"
 
+  tags = {
+    purpose   = "cloudresume"
+  }  
 }
 
 resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
@@ -68,6 +71,10 @@ resource "aws_cloudfront_distribution" "cdn" {
 
   aliases = ["aws.rissaquindoza.com"]
 
+  tags = {
+    purpose   = "cloudresume"
+  }
+
   default_cache_behavior {
     allowed_methods = ["GET", "HEAD"]
     viewer_protocol_policy = "redirect-to-https"
@@ -106,6 +113,10 @@ resource "aws_acm_certificate" "tfCert" {
 
   lifecycle {
     create_before_destroy = true
+  }
+
+  tags = {
+    purpose   = "cloudresume"
   }
 }
 

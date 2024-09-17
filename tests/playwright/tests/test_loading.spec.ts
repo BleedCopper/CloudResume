@@ -4,9 +4,13 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
 });
 
-test("has name", async ({ page }) => {
-  // Expect a title "to contain" a substring.
+test("title name", async ({ page }) => {
   await expect(page).toHaveTitle(/Rissa Quindoza/);
+});
+
+test("header name", async ({ page }) => {
+  const header = await page.locator("h1").first().textContent();
+  await expect(header).toBe("Rissa Quindoza");
 });
 
 test("has increasing view count", async ({ page }) => {
