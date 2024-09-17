@@ -135,7 +135,7 @@ jobs:
   backend:
     runs-on: ubuntu-latest # For Linux, use ubuntu-latest
     needs: backend-test
-    if: success() 
+    if: success('backend-test') 
     defaults:
       run:
         working-directory: 'compute/awsLambda'
@@ -167,7 +167,7 @@ jobs:
     - name: serverless deploy
       uses: serverless/github-action@v3.2
       with:
-        args: -c "cd ./compute/awsLambda && serverless plugin install --name serverless-offline && serverless deploy --stage prod --use-local-credentials"
+        args: -c "cd ./compute/awsLambda && serverless plugin install --name serverless-offline && serverless deploy --stage prod --region ap-southeast-2"
         entrypoint: /bin/sh
       env:
         AWS_ACCESS_KEY_ID: ${{ steps.credentials.outputs.aws-access-key-id }}
