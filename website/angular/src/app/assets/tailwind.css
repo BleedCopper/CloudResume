@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-primary max-w-7xl m-auto p-0;
+  }
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(./Inter-VariableFont.ttf) format("ttf");
+  }
+  p,
+  span,
+  a,
+  h1,
+  h2,
+  h3,
+  h4,
+  li {
+    @apply text-text;
+  }
+  p,
+  span,
+  a,
+  li {
+    @apply text-sm font-light;
+  }
+  h1 {
+    @apply text-4xl lg:text-5xl font-bold;
+  }
+  h2 {
+    @apply text-lg lg:text-xl font-medium;
+  }
+  h3 {
+    @apply text-base font-medium;
+  }
+  h4 {
+    @apply text-sm font-semibold;
+  }
+}
