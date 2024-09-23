@@ -62,7 +62,7 @@ export class LandingPage {
   ngOnInit() {
     const fetchData = async () => {
       fetchCounter().then((resp) => {
-        this.counter = resp;
+        this.counter = resp.count;
       });
     };
     fetchData();

@@ -1,8 +1,10 @@
-const prod = '';
+import { Counter } from '../models/counter';
 
-const fetchCounter = (): Promise<number> => {
-  return fetch(prod).then((resp) => {
-    return resp.json() ?? 0;
+const prod = 'http://localhost:5000/api/viewCount';
+
+const fetchCounter = (): Promise<Counter> => {
+  return fetch(prod, { method: 'POST' }).then((resp) => {
+    return resp.json();
   });
 };
 
