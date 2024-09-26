@@ -6,5 +6,5 @@ resource "cloudflare_record" "custom_domain" {
   name    = "gcp"  
   type    = "CNAME"
   content   = "ghs.googlehosted.com"  
-  proxied = true 
+  proxied = false 
 }

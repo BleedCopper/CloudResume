@@ -4,6 +4,11 @@ resource "google_project_service" "cloud_run" {
   service = "run.googleapis.com"
 }
 
+resource "google_project_service" "compute" {
+  project = local.project
+  service = "compute.googleapis.com"
+}
+
 resource "google_project_service" "app_engine" {
   service = "appengine.googleapis.com"
 }
@@ -53,6 +58,11 @@ resource "google_cloud_run_service_iam_member" "allow_unauthenticated" {
   role    = "roles/run.invoker"
   member  = "allUsers"
 }
+resource "google_service_account" "backend" {
+  account_id   = "backend-service-account"
+  display_name = "Backend Service Account"
+}
+
 
 resource "google_cloud_run_v2_service" "backend" {
   name     = "tf-cloud-backend"
@@ -60,6 +70,7 @@ resource "google_cloud_run_v2_service" "backend" {
   deletion_protection = false
 
   template {
+    service_account = google_service_account.backend.email
     containers {
       image = "gcr.io/cloud-resume-436412/backend"
       ports {
