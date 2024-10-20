@@ -32,7 +32,7 @@ name: GCP
 on:
   push:
     branches:
-      - '"main"'
+      - '"master"'
 
 env:
   PROJECT_ID: '12182583077' # TODO: update to your Google Cloud project ID
