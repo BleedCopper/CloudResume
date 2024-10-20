@@ -38,7 +38,7 @@ env:
   REGION: 'us-east1' # TODO: update to your region
   BACKEND_SERVICE: 'tf-cloud-backend' # TODO: update to your service name
   FRONTEND_SERVICE: 'tf-cloud-fronted' # TODO: update to your service name
-  WORKLOAD_IDENTITY_PROVIDER: 'projects/12182583077/locations/global/workloadIdentityPools/my-pool/providers/github'
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/12182583077/locations/global/workloadIdentityPools/github/providers/github'
 
 jobs:
   deploy:
