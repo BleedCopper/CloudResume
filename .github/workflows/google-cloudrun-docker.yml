@@ -73,12 +73,14 @@ jobs:
           registry: '${{ env.REGION }}-docker.pkg.dev'
 
       - name: 'Build and Push Backend'
+        working-directory: ./compute/express
         run: |-
           DOCKER_TAG="gcr.io/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}"
           docker build --tag "${DOCKER_TAG}" .
           docker push "${DOCKER_TAG}"
           
       - name: 'Build and Push Frontend'
+        working-directory: ./website/angular
         run: |-
           DOCKER_TAG="gcr.io/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}"
           docker build --tag "${DOCKER_TAG}" .
