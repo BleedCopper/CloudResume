@@ -34,7 +34,7 @@ on:
       branches: [ master ]
 
 env:
-  PROJECT_ID: '12182583077' # TODO: update to your Google Cloud project ID
+  PROJECT_ID: 'cloud-resume-436412' # TODO: update to your Google Cloud project ID
   REGION: 'us-east1' # TODO: update to your region
   BACKEND_SERVICE: 'tf-cloud-backend' # TODO: update to your service name
   FRONTEND_SERVICE: 'tf-cloud-fronted' # TODO: update to your service name
