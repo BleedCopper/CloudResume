@@ -97,7 +97,7 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@33553064113a37d688aa6937bacbdc481580be17' # google-github-actions/deploy-cloudrun@v2
         with:
           service: '${{ env.SERVICE }}'
-          region: 'us'
+          region: '${{ env.REGION }}'
           # NOTE: If using a pre-built image, update the image name below:
 
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloudresume/${{ env.BACKEND_SERVICE }}:${{ github.sha }}'
@@ -106,7 +106,7 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@33553064113a37d688aa6937bacbdc481580be17' # google-github-actions/deploy-cloudrun@v2
         with:
           service: '${{ env.SERVICE }}'
-          region: 'us'
+          region: '${{ env.REGION }}'
           # NOTE: If using a pre-built image, update the image name below:
 
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloudresume/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}'
