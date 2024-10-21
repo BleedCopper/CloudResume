@@ -3,7 +3,7 @@ name: AWS
 on:
     push:
         branches: [ master ]
-
+ 
 env:
   AWS_ROLE_TO_ASSUME: 'arn:aws:iam::724772065639:role/GithubTerraform'
   SLS_ROLE_TO_ASSUME: 'arn:aws:iam::724772065639:role/SFRole-8ccd82'

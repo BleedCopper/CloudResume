@@ -8,7 +8,7 @@ env:
   AZURE_STORAGE_NAME: 'tfcloudresumestore'
   AZURE_FUNCTIONAPP_NAME: 'tf-cloudresume-fnc'   # set this to your function app name on Azure
   DOTNET_VERSION: '8.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
-  
+   
 permissions:
   id-token: write
 jobs:
