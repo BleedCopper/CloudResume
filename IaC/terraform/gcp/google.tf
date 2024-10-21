@@ -39,7 +39,7 @@ resource "google_cloud_run_v2_service" "frontend" {
   template {
     service_account = google_service_account.frontend.email
     containers {
-      image = "gcr.io/cloud-resume-436412/frontend"
+      image = "us-east1-docker.pkg.dev/cloud-resume-436412/cloudresume/tf-cloud-fronted:latest"
       ports {
         container_port = 80
       }
@@ -63,6 +63,11 @@ resource "google_service_account" "backend" {
   display_name = "Backend Service Account"
 }
 
+resource "google_project_iam_member" "backend_binding" {
+  project = local.project
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.backend.email}"
+}
 
 resource "google_cloud_run_v2_service" "backend" {
   name     = "tf-cloud-backend"
@@ -72,7 +77,7 @@ resource "google_cloud_run_v2_service" "backend" {
   template {
     service_account = google_service_account.backend.email
     containers {
-      image = "gcr.io/cloud-resume-436412/backend"
+      image = "us-east1-docker.pkg.dev/cloud-resume-436412/cloudresume/tf-cloud-backend:latest"
       ports {
         container_port = 5000
       }
