@@ -83,17 +83,17 @@ jobs:
         working-directory: ./compute/express
         run: |-
           DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloudresume/${{ env.BACKEND_SERVICE }}"
-          docker build --tag "${{DOCKER_TAG}}:${{ github.sha }}"  --tag "${{DOCKER_TAG}}:latest".
-          docker push "${{DOCKER_TAG}}:${{ github.sha }}"
-          docker push "${{DOCKER_TAG}}:latest"
+          docker build --tag $DOCKER_TAG:${{ github.sha }}  --tag $DOCKER_TAG:latest .
+          docker push $DOCKER_TAG:${{ github.sha }}
+          docker push $DOCKER_TAG:latest
           
       - name: 'Build and Push Frontend'
         working-directory: ./website/angular
         run: |-
           DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloudresume/${{ env.FRONTEND_SERVICE }}"
-          docker build --tag "${{DOCKER_TAG}}:${{ github.sha }}"  --tag "${{DOCKER_TAG}}:latest".
-          docker push "${{DOCKER_TAG}}:${{ github.sha }}"
-          docker push "${{DOCKER_TAG}}:latest"
+          docker build --tag $DOCKER_TAG:${{ github.sha }}  --tag $DOCKER_TAG:latest .
+          docker push $DOCKER_TAG:${{ github.sha }}
+          docker push $DOCKER_TAG:latest
           
       - name: 'Deploy Backend to Cloud Run'
         uses: 'google-github-actions/deploy-cloudrun@33553064113a37d688aa6937bacbdc481580be17' # google-github-actions/deploy-cloudrun@v2
